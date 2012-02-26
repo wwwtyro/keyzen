@@ -100,7 +100,7 @@ function render_level() {
             chars += "<span style='color: #AAA' onclick='set_level(" + c + ");'>"
         }
         if (data.chars[c] == ' ') {
-            chars += " space ";
+            chars += "&#9141;";
         }
         else {
             chars += data.chars[c];
@@ -146,7 +146,7 @@ function render_word() {
         }
         word += "<span class='" + sclass + "'>";
         if(data.word[i] == " ") {
-            word += "&nbsp;"
+            word += "&#9141;"
         }
         else {
             word += data.word[i];
@@ -168,7 +168,6 @@ function generate_word() {
             word += choose(get_level_chars());
         }
     }
-    word += ' ';
     return word;
 }
 
