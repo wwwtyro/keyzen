@@ -1,5 +1,4 @@
 
-
 var data = {};
 data.chars = " jfkdlsahgyturieowpqbnvmcxz6758493021`-=[]\\;',./ABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*()_+{}|:\"<>?";
 data.consecutive = 10;
@@ -146,7 +145,7 @@ function render_word() {
         }
         word += "<span class='" + sclass + "'>";
         if(data.word[i] == " ") {
-            word += "&nbsp;"
+            word += "&#9141;"
         }
         else {
             word += data.word[i];
