@@ -35,6 +35,9 @@ function set_level(l) {
 
 function keyHandler(e) {
     var key = String.fromCharCode(e.which);
+    if (data.chars.indexOf(key) > -1){
+        e.preventDefault();
+    }
     if(key == data.word[data.word_index]) {
         data.in_a_row[key] += 1;
         (new Audio("click.wav")).play();
