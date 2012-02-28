@@ -28,6 +28,7 @@ function set_level(l) {
     data.word_index = 0;
     data.word_errors = {};
     data.word = generate_word();
+    data.keys_hit = "";
     save();
     render();
 }
@@ -38,6 +39,7 @@ function keyHandler(e) {
     if (data.chars.indexOf(key) > -1){
         e.preventDefault();
     }
+    data.keys_hit += key;
     if(key == data.word[data.word_index]) {
         data.in_a_row[key] += 1;
         (new Audio("click.wav")).play();
@@ -55,6 +57,7 @@ function keyHandler(e) {
         }
         data.word = generate_word();
         data.word_index = 0;
+        data.keys_hit = "";
         data.word_errors = {};
     }
     render();
@@ -156,7 +159,20 @@ function render_word() {
         }
         word += "</span>";
     }
-    $("#word").html("&nbsp;" + word);
+    var keys_hit = "<span class='keys-hit'>";
+    for(var d in data.keys_hit) {
+        if (data.keys_hit[d] == ' ') {
+            keys_hit += "&#9141";
+        }
+        else {
+            keys_hit += data.keys_hit[d];
+        }
+    }
+    for(var i = data.word_index; i < data.word_length; i++) {
+        keys_hit += "&nbsp;";
+    }
+    keys_hit += "</span>";
+    $("#word").html(word + "<br>" + keys_hit);
 }
 
 
