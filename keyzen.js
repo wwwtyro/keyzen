@@ -114,7 +114,7 @@ function render_level() {
         chars += "</span>";
     }
     chars += "</span>";
-    $("#level-chars").html(chars);
+    $("#level-chars").html(chars + ' &#8592; click to set level');
 }
 
 
