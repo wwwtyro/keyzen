@@ -88,6 +88,7 @@ function render() {
     render_level();
     render_word();
     render_level_bar();
+    render_rigor();
 }
 
 
@@ -115,6 +116,21 @@ function render_level() {
     }
     chars += "</span>";
     $("#level-chars").html(chars + ' &#8592; click to set level');
+}
+
+function render_rigor() {
+    chars = "<span id='rigor-number' onclick='inc_rigor();'>";
+    chars += '' + data.consecutive;
+    chars += '<span>';
+    $('#rigor').html('click to set required repititions &#8594; ' + chars);
+}
+
+function inc_rigor() {
+    data.consecutive += 1;
+    if (data.consecutive > 10) {
+        data.consecutive = 2;
+    }
+    render_rigor();
 }
 
 
