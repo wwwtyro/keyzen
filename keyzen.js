@@ -2,7 +2,7 @@
 
 var data = {};
 data.chars = " jfkdlsahgyturieowpqbnvmcxz6758493021`-=[]\\;',./ABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*()_+{}|:\"<>?";
-data.consecutive = 10;
+data.consecutive = 5;
 data.word_length = 7;
 
 
@@ -88,6 +88,7 @@ function render() {
     render_level();
     render_word();
     render_level_bar();
+    render_rigor();
 }
 
 
@@ -114,7 +115,22 @@ function render_level() {
         chars += "</span>";
     }
     chars += "</span>";
-    $("#level-chars").html(chars);
+    $("#level-chars").html('click to set level: ' + chars);
+}
+
+function render_rigor() {
+    chars = "<span id='rigor-number' onclick='inc_rigor();'>";
+    chars += '' + data.consecutive;
+    chars += '<span>';
+    $('#rigor').html('click to set required repititions: ' + chars);
+}
+
+function inc_rigor() {
+    data.consecutive += 1;
+    if (data.consecutive > 9) {
+        data.consecutive = 2;
+    }
+    render_rigor();
 }
 
 
@@ -154,6 +170,9 @@ function render_word() {
         if(data.word[i] == " ") {
             word += "&#9141;"
         }
+        else if(data.word[i] == "&") {
+            word += "&amp;"
+        }
         else {
             word += data.word[i];
         }
@@ -162,7 +181,10 @@ function render_word() {
     var keys_hit = "<span class='keys-hit'>";
     for(var d in data.keys_hit) {
         if (data.keys_hit[d] == ' ') {
-            keys_hit += "&#9141";
+            keys_hit += "&#9141;";
+        }
+        else if (data.keys_hit[d] == '&') {
+            keys_hit += "&amp;";
         }
         else {
             keys_hit += data.keys_hit[d];

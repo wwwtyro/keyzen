@@ -19,8 +19,15 @@
 
             body {
                 background-image: url('brushed_alu.png');
+                font-family: 'Ubuntu Monokz', sans-serif;
                 padding: 0; 
                 margin: 0;
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;            
             }
 
             #container {
@@ -35,7 +42,6 @@
                 top: 50%;
                 margin-top: -64px;
                 height:128px;
-                font-family: 'Ubuntu Monokz', sans-serif;
                 font-size: 128px;
                 width:100%;
                 padding: 0px;
@@ -48,7 +54,6 @@
             
             .keys-hit {
                 color: #CCC;
-                font-family: 'Ubuntu Monokz', sans-serif;
                 font-size: 128px;
             	text-shadow: none;
             }
@@ -61,7 +66,6 @@
             }
 
             #level-chars {
-                font-family: 'Ubuntu Monokz', sans-serif;
                 font-size: 16px;
                 width:95%;
                 text-align: center;
@@ -73,6 +77,21 @@
                 cursor: hand;
                 color: #AAAAAA;
             }
+            
+            #rigor {
+                font-size: 16px;
+                position: absolute;
+                right: 16px;
+                bottom: 16px;
+                color: #AAA;
+                font-weight: bold;
+                text-align: right;
+            }
+            
+            #rigor-number {
+                color: #000;
+                cursor: hand;
+            }   
 
             .currentChar {
                 border-bottom: 4px solid #f78d1d;
@@ -102,6 +121,9 @@
             </div>
 
             <div id='word'>
+            </div>
+            
+            <div id='rigor'>
             </div>
 
         </div>        
