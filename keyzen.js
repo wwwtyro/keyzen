@@ -2,7 +2,7 @@
 
 var data = {};
 data.chars = " jfkdlsahgyturieowpqbnvmcxz6758493021`-=[]\\;',./ABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*()_+{}|:\"<>?";
-data.consecutive = 10;
+data.consecutive = 5;
 data.word_length = 7;
 
 
@@ -115,19 +115,19 @@ function render_level() {
         chars += "</span>";
     }
     chars += "</span>";
-    $("#level-chars").html(chars + ' &#8592; click to set level');
+    $("#level-chars").html('click to set level: ' + chars);
 }
 
 function render_rigor() {
     chars = "<span id='rigor-number' onclick='inc_rigor();'>";
     chars += '' + data.consecutive;
     chars += '<span>';
-    $('#rigor').html('click to set required repititions &#8594; ' + chars);
+    $('#rigor').html('click to set required repititions: ' + chars);
 }
 
 function inc_rigor() {
     data.consecutive += 1;
-    if (data.consecutive > 10) {
+    if (data.consecutive > 9) {
         data.consecutive = 2;
     }
     render_rigor();
