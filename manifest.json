@@ -1,0 +1,15 @@
+{
+  // Required
+  "name": "KeyZen",
+  "version": "1.0",
+
+  "description": "A touch typing app for Chrome, src is @ https://github.com/wwwtyro/keyzen",
+  "icons": {
+    "128": "app_icon.png"
+  },
+  "app": {
+    "launch": {
+        "local_path": "index.html"
+    }
+  }
+}
