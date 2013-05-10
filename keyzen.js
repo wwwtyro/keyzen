@@ -5,6 +5,11 @@ data.chars = " jfkdlsahgyturieowpqbnvmcxz6758493021`-=[]\\;',./ABCDEFGHIJKLMNOPQ
 data.consecutive = 5;
 data.word_length = 7;
 
+var sound_effect = {
+    'ding'  : new Audio('ding.wav'),
+    'click' : new Audio('click.wav'),
+    'clack' : new Audio('clack.wav')
+};
 
 $(document).ready(function() {
     if (localStorage.data != undefined) {
@@ -42,12 +47,12 @@ function keyHandler(e) {
     data.keys_hit += key;
     if(key == data.word[data.word_index]) {
         data.in_a_row[key] += 1;
-        (new Audio("click.wav")).play();
+        sound_effect['click'].play();
     }
     else {
         data.in_a_row[data.word[data.word_index]] = 0;
         data.in_a_row[key] = 0;
-        (new Audio("clack.wav")).play();
+        sound_effect['clack'].play();
         data.word_errors[data.word_index] = true;
     }
     data.word_index += 1;
@@ -63,11 +68,10 @@ function keyHandler(e) {
     render();
     save();
 }
-
-
+    
 function level_up() {
     if (data.level + 1 <= data.chars.length - 1) {
-        (new Audio('ding.wav')).play();
+        sound_effect['ding'].play();
     }
     l = Math.min(data.level + 1, data.chars.length);
     set_level(l);
@@ -231,44 +235,3 @@ function get_training_chars() {
 function choose(a) {
     return a[Math.floor(Math.random() * a.length)];
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
