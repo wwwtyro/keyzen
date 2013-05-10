@@ -36,6 +36,9 @@ function set_level(l) {
 
 function keyHandler(e) {
     var key = String.fromCharCode(e.which);
+    if (e.ctrlKey || e.altKey || e.metaKey) {
+    	return;
+    }
     if (data.chars.indexOf(key) > -1){
         e.preventDefault();
     }
