@@ -1,6 +1,19 @@
 
 
 var data = {};
+var hits = {
+  correct: 0,
+  wrong: 0
+};
+var startTime = 0;
+var deltaTime = 0;
+
+setInterval(function () {
+  deltaTime = (new Date).getTime() - startTime;
+  if (startTime === 0) deltaTime = 0;
+  render_timer();
+}, 500);
+
 data.chars = " jfkdlsahgyturieowpqbnvmcxz6758493021`-=[]\\;',./ABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*()_+{}|:\"<>?";
 data.consecutive = 5;
 data.word_length = 7;
@@ -35,6 +48,8 @@ function set_level(l) {
 
 
 function keyHandler(e) {
+    startTime = startTime || (new Date().getTime());
+
     var key = String.fromCharCode(e.which);
     if (e.ctrlKey || e.altKey || e.metaKey) {
     	return;
@@ -44,10 +59,12 @@ function keyHandler(e) {
     }
     data.keys_hit += key;
     if(key == data.word[data.word_index]) {
+        hits.correct += 1;
         data.in_a_row[key] += 1;
         (new Audio("click.wav")).play();
     }
     else {
+        hits.wrong += 1;
         data.in_a_row[data.word[data.word_index]] = 0;
         data.in_a_row[key] = 0;
         (new Audio("clack.wav")).play();
@@ -63,6 +80,7 @@ function keyHandler(e) {
         data.keys_hit = "";
         data.word_errors = {};
     }
+    console.log(hits);
     render();
     save();
 }
@@ -126,6 +144,11 @@ function render_rigor() {
     chars += '' + data.consecutive;
     chars += '<span>';
     $('#rigor').html('click to set required repititions: ' + chars);
+}
+
+function render_timer() {
+    var seconds = Math.floor(deltaTime / 1000);
+    $('#timer').text(seconds + 's, ' + hits.correct + '+, ' + hits.wrong + '-');
 }
 
 function inc_rigor() {
