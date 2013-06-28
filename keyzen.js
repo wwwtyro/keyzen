@@ -148,7 +148,12 @@ function render_rigor() {
 
 function render_timer() {
     var seconds = Math.floor(deltaTime / 1000);
-    $('#timer').text(seconds + 's, ' + hits.correct + '+, ' + hits.wrong + '-');
+    var hpm = Math.floor((hits.correct + hits.wrong) * 60 / seconds);
+    var ratio = Math.floor(hits.correct / (hits.correct + hits.wrong) * 100 );
+    $('#timer').text(
+      seconds + 's, ' + hits.correct + '+, ' + hits.wrong + '-, hpm: ' +
+      hpm + ' ratio: ' + ratio + '%'
+    );
 }
 
 function inc_rigor() {
