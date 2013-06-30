@@ -1,6 +1,10 @@
-
-
 var data = {};
+var hits_correct = 0;
+var hits_wrong = 0;
+var start_time = 0;
+var hpm = 0;
+var ratio = 0;
+
 data.chars = " jfkdlsahgyturieowpqbnvmcxz6758493021`-=[]\\;',./ABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*()_+{}|:\"<>?";
 data.consecutive = 5;
 data.word_length = 7;
@@ -16,6 +20,24 @@ $(document).ready(function() {
     }
     $(document).keypress(keyHandler);
 });
+
+
+function start_stats() {
+    start_time = start_time || Math.floor(new Date().getTime() / 1000);
+}
+
+function update_stats() {
+    if (start_time) {
+        var current_time = (Math.floor(new Date().getTime() / 1000));
+        ratio = Math.floor(
+            hits_correct / (hits_correct + hits_wrong) * 100
+        );
+        hpm = Math.floor(
+            (hits_correct + hits_wrong) / (current_time - start_time) * 60
+        );
+        if (!isFinite(hpm)) { hpm = 0; }
+    }
+}
 
 
 function set_level(l) {
@@ -35,6 +57,8 @@ function set_level(l) {
 
 
 function keyHandler(e) {
+    start_stats();
+
     var key = String.fromCharCode(e.which);
     if (e.ctrlKey || e.altKey || e.metaKey) {
     	return;
@@ -44,10 +68,12 @@ function keyHandler(e) {
     }
     data.keys_hit += key;
     if(key == data.word[data.word_index]) {
+        hits_correct += 1;
         data.in_a_row[key] += 1;
         (new Audio("click.wav")).play();
     }
     else {
+        hits_wrong += 1;
         data.in_a_row[data.word[data.word_index]] = 0;
         data.in_a_row[key] = 0;
         (new Audio("clack.wav")).play();
@@ -63,6 +89,9 @@ function keyHandler(e) {
         data.keys_hit = "";
         data.word_errors = {};
     }
+
+    update_stats();
+
     render();
     save();
 }
@@ -92,6 +121,7 @@ function render() {
     render_word();
     render_level_bar();
     render_rigor();
+    render_stats();
 }
 
 
@@ -126,6 +156,13 @@ function render_rigor() {
     chars += '' + data.consecutive;
     chars += '<span>';
     $('#rigor').html('click to set required repititions: ' + chars);
+}
+
+function render_stats() {
+    $("#stats").text([
+        "hits per minute: ", hpm, " ",
+        "correctness: ", ratio, "%"
+    ].join(""));
 }
 
 function inc_rigor() {
@@ -234,44 +271,3 @@ function get_training_chars() {
 function choose(a) {
     return a[Math.floor(Math.random() * a.length)];
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
