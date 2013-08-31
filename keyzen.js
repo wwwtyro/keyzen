@@ -60,11 +60,11 @@ function keyHandler(e) {
     start_stats();
 
     var key = String.fromCharCode(e.which);
-    if (e.ctrlKey || e.altKey || e.metaKey) {
-    	return;
-    }
     if (data.chars.indexOf(key) > -1){
         e.preventDefault();
+    }
+    else {
+    	return;
     }
     data.keys_hit += key;
     if(key == data.word[data.word_index]) {
