@@ -1,0 +1,146 @@
+<!doctype html5>
+
+<!--<html manifest="keyzen.manifest">-->
+<html>
+
+    <head>
+        <title>keyzen</title>
+        <script src="jquery.js"></script>
+        <script language="javascript1.7" src="keyzen.js"></script>
+
+        <style>
+
+            @font-face {
+              font-family: 'Ubuntu Monokz';
+              font-style: normal;
+              font-weight: normal;
+              src: local('Ubuntu Monokz'), local('UbuntuMono-Regular'), url('ubuntu-mono.woff') format('woff');
+            }
+
+            body {
+                background-image: url('brushed_alu.png');
+                font-family: 'Ubuntu Monokz', sans-serif;
+                padding: 0; 
+                margin: 0;
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;            
+            }
+
+            #container {
+                position: relative;
+                width:100%;
+                height:100%;
+            }
+
+            #word {
+                color: #AAA;
+                position: absolute;
+                top: 50%;
+                margin-top: -64px;
+                height:128px;
+                font-size: 128px;
+                width:100%;
+                padding: 0px;
+                text-align: center;
+                margin-left: auto;
+                margin-right:auto;
+                word-wrap: break-word;
+            	text-shadow: 0px 2px 3px #000;
+            }
+            
+            .keys-hit {
+                color: #CCC;
+                font-size: 128px;
+            	text-shadow: none;
+            }
+            
+            #next-level {
+                height: 2px;
+                background-color: #f78d1d;
+                margin-left: auto;
+                margin-right:auto;
+            }
+
+            #level-chars {
+                font-size: 16px;
+                width:95%;
+                text-align: center;
+                padding: 16px;
+                margin-left: auto;
+                margin-right:auto;
+                word-wrap: break-word;
+                font-weight: bold;
+                cursor: hand;
+                color: #AAAAAA;
+            }
+            
+            #rigor {
+                font-size: 16px;
+                position: absolute;
+                right: 16px;
+                bottom: 16px;
+                color: #AAA;
+                font-weight: bold;
+                text-align: right;
+            }
+
+            #stats {
+                font-size: 16px;
+                position: absolute;
+                left: 16px;
+                bottom: 16px;
+                color: #AAA;
+                font-weight: bold;
+                text-align: right;
+            }
+            
+            #rigor-number {
+                color: #000;
+                cursor: hand;
+            }   
+
+            .currentChar {
+                border-bottom: 4px solid #f78d1d;
+            }
+            
+            .errorChar {
+                color: #FF0000;
+            }
+            
+            .goodChar {
+                color: #AAAAAA;
+            	text-shadow: 0px 1px 1px #FFF, 0px 2px 2px #FFF;
+            }
+            
+        </style>
+
+    </head>
+
+    <body>
+
+        <div id='container'>
+
+            <div id='level-chars'>
+            </div>
+
+            <div id='next-level'>
+            </div>
+
+            <div id='word'>
+            </div>
+            
+            <div id='rigor'>
+            </div>
+
+            <div id="stats">
+            </div>
+
+        </div>        
+
+    </body>
+    
+</html>
