@@ -3,6 +3,7 @@ from pprint import pprint
 from unipath import Path
 import json
 import tempfile
+import re
 import numpy
 import time
 import tempfile
@@ -94,20 +95,27 @@ def main(corpus=None):
 
     # ########################
 
+    max_size = 100000000
+
+    if len(CORPUS) > max_size:
+        CORPUS = CORPUS[:max_size]
+
     # add words from Brown corpus to our Corpus
 
     CORPUS += ' '.join(brown.words())
     #CORPUS += gutenberg.raw().replace('\n', ' ').replace('\r', '')
+
     n_chars = len(CORPUS)
-    import re
     CORPUS = re.sub('\s+',' ',CORPUS)
     print 'CORPUS length: %s' % len(CORPUS)
 
+    print "adding bigrams..."
     for i in range(2, n_chars):
         try:
             bigrams[CORPUS[i-2:i]] += 1
         except KeyError as e:
-            print e
+            pass
+            #print e
     print "finished"
 
     # ########################
