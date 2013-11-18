@@ -79,13 +79,14 @@ def main(corpus=None):
 
     # ########################
 
-    if corpus is not None:
+    if corpus is None:
         # fetch linux kernal, add all the text files to the Corpus
-        corpus = download_zipped_corpus(url)
+        corpus = download_zipped_corpus()
 
     # unzip corpus
+    print "unzipping ..."
 
-    zfile = zipfile.ZipFile()
+    zfile = zipfile.ZipFile(corpus.absolute())
     for name in zfile.namelist():
         f = zfile.read(name)
         if istext(f):
@@ -131,3 +132,9 @@ def main(corpus=None):
     f.close()
 
     print "exection took:", time.time() - start_time, "seconds"
+
+if __name__=="__main__":
+    if len(sys.argv) > 1:
+        main(corpus=Path(sys.argv[1]))
+    else:
+        main()
