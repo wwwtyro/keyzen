@@ -101,16 +101,24 @@ function keyHandler(e) {
     }
     data.word_index += 1;
     if (data.word_index >= data.word.length) {
-        if(get_training_chars().length == 0) {
-            level_up();
-        }
-        data.word = generate_word();
-        data.word_index = 0;
-        data.keys_hit = "";
-        data.word_errors = {};
+        setTimeout(next_word, 400);
     }
 
     update_stats();
+
+    render();
+    save();
+}
+
+function next_word(){
+	if(get_training_chars().length == 0) {
+		level_up();
+	}
+	data.word = generate_word();
+	data.word_index = 0;
+	data.keys_hit = "";
+	data.word_errors = {};
+	update_stats();
 
     render();
     save();
