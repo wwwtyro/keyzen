@@ -8,7 +8,12 @@ var ratio = 0;
 data.chars = " jfkdlsahgyturieowpqbnvmcxz6758493021`-=[]\\;',./ABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*()_+{}|:\"<>?";
 data.consecutive = 5;
 data.word_length = 7;
-
+data.current_layout = "qwerty";
+layouts={};
+layouts["qwerty"] = " jfkdlsahgyturieowpqbnvmcxz6758493021`-=[]\\;',./ABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*()_+{}|:\"<>?";
+layouts["azerty"] = " jfkdlsmqhgyturieozpabnvcxw6758493021`-=[]\\;',./ABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*()_+{}|:\"<>?";
+layouts["colemak"] = " ntesiroahdjglpufywqbkvmcxz1234567890'\",.!?:;/@$%&#*()_ABCDEFGHIJKLMNOPQRSTUVWXYZ~+-={}|^<>`[]\\";
+layouts["bépo"] = " tesirunamc,èvodpléjbk'.qxghyfàzw6758493021`-=[]\\;/ABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*()_+{}|:\"<>?";
 
 $(document).ready(function() {
     if (localStorage.data != undefined) {
@@ -55,6 +60,21 @@ function set_level(l) {
     render();
 }
 
+function set_layout(l) {
+    data.current_layout = l
+	data.chars = layouts[l]
+    data.in_a_row = {};
+    for(var i = 0; i < data.chars.length; i++) {
+        data.in_a_row[data.chars[i]] = data.consecutive;
+    }
+    data.word_index = 0;
+    data.word_errors = {};
+    data.word = generate_word();
+    data.keys_hit = "";
+    save();
+    render();
+}
+
 
 function keyHandler(e) {
     start_stats();
@@ -81,16 +101,24 @@ function keyHandler(e) {
     }
     data.word_index += 1;
     if (data.word_index >= data.word.length) {
-        if(get_training_chars().length == 0) {
-            level_up();
-        }
-        data.word = generate_word();
-        data.word_index = 0;
-        data.keys_hit = "";
-        data.word_errors = {};
+        setTimeout(next_word, 400);
     }
 
     update_stats();
+
+    render();
+    save();
+}
+
+function next_word(){
+	if(get_training_chars().length == 0) {
+		level_up();
+	}
+	data.word = generate_word();
+	data.word_index = 0;
+	data.keys_hit = "";
+	data.word_errors = {};
+	update_stats();
 
     render();
     save();
@@ -117,6 +145,7 @@ function load() {
 
 
 function render() {
+    render_layout();
     render_level();
     render_word();
     render_level_bar();
@@ -124,6 +153,19 @@ function render() {
     render_stats();
 }
 
+function render_layout() {
+	var layouts_html = "<span id='layout'>";
+	for(var layout in layouts){
+		if(data.current_layout == layout){
+			layouts_html += "<span style='color: #F00' onclick='set_layout(\"" + layout + "\");'> "
+		} else {
+		 layouts_html += "<span style='color: #AAA' onclick='set_layout(\"" + layout + "\");'> "
+		}
+		layouts_html += layout + "</span>";
+	}
+	layouts_html += "</span>";
+	$("#layout").html('Choose layout : ' + layouts_html);
+}
 
 function render_level() {
     var chars = "<span id='level-chars-wrap'>";
